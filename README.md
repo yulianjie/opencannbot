@@ -25,7 +25,9 @@
 curl -fsSL https://raw.githubusercontent.com/BadFatCat0919/opencannbot/main/install-cannbot-provider.sh | bash
 ```
 
-脚本会提示输入 VK，输入后自动完成配置。
+脚本只负责注册 provider，安装完成后重启 opencode，在 opencode 中输入 `/connect`，选择 **CANNBOT** 并填入你的 Virtual Key (VK)。
+
+获取 VK：https://cannbot.hicann.cn -> 设置 -> API Keys
 
 ### 验证
 
@@ -49,7 +51,8 @@ cannbot/deepseek-v3
 
 1. 将认证插件写入 `~/.config/opencode/plugins/cannbot-auth.js`
 2. 在 `~/.config/opencode/opencode.json` 中注册插件
-3. 将 VK 写入 `~/.local/share/opencode/auth.json`（权限 600）
+
+用户通过 `/connect` 填入 VK 后，插件自动处理认证。
 
 插件通过以下 hook 工作：
 

@@ -230,7 +230,7 @@ export default async function (input) {
 };
 PLUGIN_EOF
 
-green "[1/3] Plugin installed -> $PLUGIN_FILE"
+green "[1/2] Plugin installed -> $PLUGIN_FILE"
 
 # ── 2. Update opencode.json ─────────────────────────────────────────────
 
@@ -257,38 +257,13 @@ else
   "
 fi
 
-green "[2/3] opencode.json updated -> $OPENCODE_JSON"
-
-# ── 3. Prompt VK & write auth.json ──────────────────────────────────────
+green "[2/2] opencode.json updated -> $OPENCODE_JSON"
 
 echo
-yellow "Please enter your CANNBOT Virtual Key (VK)."
-yellow "(Get it from https://cannbot.hicann.cn -> Settings -> API Keys)"
+bold "Done! Restart opencode, then run:"
 echo
-read -rp "VK: " VK
-
-if [ -z "$VK" ]; then
-  red "No VK provided. You can add it later by running:"
-  echo "  opencode auth login cannbot"
-  echo
-  red "Or manually edit $AUTH_JSON:"
-  echo '  { "cannbot": { "type": "api", "key": "vk-xxx" } }'
-  exit 1
-fi
-
-node -e "
-  const fs = require('fs');
-  let auth = {};
-  try { auth = JSON.parse(fs.readFileSync('$AUTH_JSON', 'utf-8')); } catch {}
-  auth['cannbot'] = { type: 'api', key: '$VK' };
-  fs.writeFileSync('$AUTH_JSON', JSON.stringify(auth, null, 2) + '\n', { mode: 0o600 });
-"
-
-green "[3/3] VK saved -> $AUTH_JSON"
-
+echo "  /connect"
 echo
-bold "Done! Restart opencode to use CANNBOT provider."
-echo
-echo "  Available models:"
-echo "    cannbot/qwen-plus  cannbot/qwen-max  cannbot/deepseek-v3  ..."
+echo "Select 'CANNBOT' and enter your Virtual Key (VK)."
+echo "Get your VK at: https://cannbot.hicann.cn -> Settings -> API Keys"
 echo
